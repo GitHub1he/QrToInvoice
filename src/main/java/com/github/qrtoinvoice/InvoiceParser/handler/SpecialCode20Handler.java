@@ -1,14 +1,14 @@
-package com.github.qrtoinvoice.qr.handler;
+package com.github.qrtoinvoice.InvoiceParser.handler;
 
 import com.github.qrtoinvoice.model.Invoice;
 import com.github.qrtoinvoice.model.InvoiceTypeEnum;
-import com.github.qrtoinvoice.qr.QrCodeHandle;
+import com.github.qrtoinvoice.InvoiceParser.InvoiceParseHandle;
 
 /**
  * 特殊代码20处理器
  * 二维码中发票类型代码为20时，转换为08
  */
-public class SpecialCode20Handler extends QrCodeHandle {
+public class SpecialCode20Handler extends InvoiceParseHandle {
     @Override
     public Invoice handle(String value) {
         String[] fields = value.split(",");

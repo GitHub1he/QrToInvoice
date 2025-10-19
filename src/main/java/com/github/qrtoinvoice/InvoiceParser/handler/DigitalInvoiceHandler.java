@@ -1,14 +1,14 @@
-package com.github.qrtoinvoice.qr.handler;
+package com.github.qrtoinvoice.InvoiceParser.handler;
 
 import com.github.qrtoinvoice.model.Invoice;
 import com.github.qrtoinvoice.model.InvoiceTypeEnum;
-import com.github.qrtoinvoice.qr.QrCodeHandle;
+import com.github.qrtoinvoice.InvoiceParser.InvoiceParseHandle;
 
 /**
  * 数电票识别处理器
  * 处理发票号码为20位的情况
  */
-public class DigitalInvoiceHandler extends QrCodeHandle {
+public class DigitalInvoiceHandler extends InvoiceParseHandle {
     @Override
     public Invoice handle(String value) {
         String[] fields = value.split(",");

@@ -1,14 +1,14 @@
-package com.github.qrtoinvoice.qr.handler;
+package com.github.qrtoinvoice.InvoiceParser.handler;
 
 import com.github.qrtoinvoice.model.Invoice;
 import com.github.qrtoinvoice.model.InvoiceTypeEnum;
-import com.github.qrtoinvoice.qr.QrCodeHandle;
+import com.github.qrtoinvoice.InvoiceParser.InvoiceParseHandle;
 
 /**
  * 默认映射处理器
  * 处理其他二维码类型到系统类型的映射
  */
-public class DefaultMappingHandler extends QrCodeHandle {
+public class DefaultMappingHandler extends InvoiceParseHandle {
     @Override
     public Invoice handle(String value) {
         String[] fields = value.split(",");

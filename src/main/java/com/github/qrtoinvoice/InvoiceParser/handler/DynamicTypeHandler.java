@@ -1,14 +1,14 @@
-package com.github.qrtoinvoice.qr.handler;
+package com.github.qrtoinvoice.InvoiceParser.handler;
 
 import com.github.qrtoinvoice.model.Invoice;
 import com.github.qrtoinvoice.model.InvoiceTypeEnum;
-import com.github.qrtoinvoice.qr.QrCodeHandle;
+import com.github.qrtoinvoice.InvoiceParser.InvoiceParseHandle;
 
 /**
  * 动态类型处理器
  * 处理二维码类型为31、32、33、34的情况
  */
-public class DynamicTypeHandler extends QrCodeHandle {
+public class DynamicTypeHandler extends InvoiceParseHandle {
     @Override
     public Invoice handle(String value) {
         String[] fields = value.split(",");

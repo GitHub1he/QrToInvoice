@@ -1,19 +1,19 @@
-package com.github.qrtoinvoice.qr;
+package com.github.qrtoinvoice.InvoiceParser;
 
 import com.github.qrtoinvoice.model.Invoice;
 
 import java.math.BigDecimal;
 
-public abstract class QrCodeHandle {
-    protected QrCodeHandle next;
+public abstract class InvoiceParseHandle {
+    protected InvoiceParseHandle next;
 
     public abstract Invoice handle(String value);
 
-    public QrCodeHandle next() {
+    public InvoiceParseHandle next() {
         return this.next;
     }
 
-    public void setNext(QrCodeHandle next) {
+    public void setNext(InvoiceParseHandle next) {
         this.next = next;
     }
 
@@ -34,7 +34,7 @@ public abstract class QrCodeHandle {
      * 解析基础字段到Invoice对象
      */
     protected Invoice parseBasicFields(String value) {
-        String[] fields = value.split(",");
+        String[] fields = value.split(",", -1);
         if (fields.length < 8) {
             throw new IllegalArgumentException("二维码数据格式不正确，字段数量不足");
         }
