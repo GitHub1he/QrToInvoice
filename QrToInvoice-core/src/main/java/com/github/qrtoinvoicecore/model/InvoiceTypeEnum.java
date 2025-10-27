@@ -24,6 +24,7 @@ public enum InvoiceTypeEnum {
     PAPER_INVOICE_REGULAR("86", "纸质发票（普通发票）"),
     PAPER_VEHICLE_SALES("87", "纸质发票（机动车销售统一发票）"),
     PAPER_USED_CAR_SALES("88", "纸质发票（二手车销售统一发票）"),
+    Blockchain("1009", "区块链发票"),
     OTHER("999", "其他发票")
 
     ;

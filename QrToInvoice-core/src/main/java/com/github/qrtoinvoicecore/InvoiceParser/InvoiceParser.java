@@ -1,9 +1,6 @@
 package com.github.qrtoinvoicecore.InvoiceParser;
 
-import com.github.qrtoinvoicecore.InvoiceParser.handler.DefaultMappingHandler;
-import com.github.qrtoinvoicecore.InvoiceParser.handler.DigitalInvoiceHandler;
-import com.github.qrtoinvoicecore.InvoiceParser.handler.DynamicTypeHandler;
-import com.github.qrtoinvoicecore.InvoiceParser.handler.SpecialCode20Handler;
+import com.github.qrtoinvoicecore.InvoiceParser.handler.*;
 import com.github.qrtoinvoicecore.model.Invoice;
 
 /**
@@ -27,15 +24,17 @@ public class InvoiceParser {
      * 顺序：数电票识别 -> 特殊代码20 -> 动态类型 -> 默认映射
      */
     private static InvoiceParseHandle buildChain() {
+        HttpLinksHandler linksHandler = new HttpLinksHandler();
         DigitalInvoiceHandler digitalHandler = new DigitalInvoiceHandler();
         SpecialCode20Handler special20Handler = new SpecialCode20Handler();
         DynamicTypeHandler dynamicHandler = new DynamicTypeHandler();
         DefaultMappingHandler defaultHandler = new DefaultMappingHandler();
 
+        linksHandler.setNext(digitalHandler);
         digitalHandler.setNext(special20Handler);
         special20Handler.setNext(dynamicHandler);
         dynamicHandler.setNext(defaultHandler);
 
-        return digitalHandler;
+        return linksHandler;
     }
 }

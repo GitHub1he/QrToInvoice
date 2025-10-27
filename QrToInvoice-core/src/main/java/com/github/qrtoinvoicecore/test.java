@@ -6,6 +6,7 @@ import com.github.qrtoinvoicecore.QRCodeParser.QRCodeParser;
 import com.github.qrtoinvoicecore.QRCodeParser.strategy.ImageQRCodeParseStrategy;
 import com.github.qrtoinvoicecore.QRCodeParser.strategy.PdfQRCodeParseStrategy;
 import com.github.qrtoinvoicecore.QRCodeParser.strategy.QRCodeParseStrategy;
+import com.github.qrtoinvoicecore.model.Invoice;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.GlobalHistogramBinarizer;
@@ -24,22 +25,24 @@ import java.util.List;
 public class test {
     public static void main(String[] args) throws IOException, NotFoundException {
 
-        QRCodeDecoder qrCodeDecoder = new QRCodeDecoder();
-        BufferedImage bufferedImage = ImageIO.read(new File("D:\\02_code\\QrToInvoice\\QrToInvoice-core\\src\\main\\resources\\img.jpg"));
-        try{
-            String result = qrCodeDecoder.decodeFromImage(bufferedImage);
-            System.out.println(result);
-        } catch (Exception e) {
-            System.out.println("e.getMessage() = " + e.getMessage());
-        }
-        try {
-            List<String>  result2 = decodeMultiple(bufferedImage);
-
-
-            System.out.println("result2 = " + result2);
-        } catch (Exception e) {
-            System.out.println("e.getMessage() = " + e.getMessage());
-        }
+//        QRCodeDecoder qrCodeDecoder = new QRCodeDecoder();
+//        BufferedImage bufferedImage = ImageIO.read(new File("D:\\02_code\\QrToInvoice\\QrToInvoice-core\\src\\main\\resources\\img.jpg"));
+//        try{
+//            String result = qrCodeDecoder.decodeFromImage(bufferedImage);
+//            System.out.println(result);
+//        } catch (Exception e) {
+//            System.out.println("e.getMessage() = " + e.getMessage());
+//        }
+//        try {
+//            List<String>  result2 = decodeMultiple(bufferedImage);
+//
+//
+//            System.out.println("result2 = " + result2);
+//        } catch (Exception e) {
+//            System.out.println("e.getMessage() = " + e.getMessage());
+//        }
+        Invoice invoiceFromQr = InvoiceParser.getInvoiceFromQr("https://bcfp.shenzhen.chinatax.gov.cn/verify/scan?hash=01955ef909a61c7d14c7b80ad4ae5284bd39079f03e73cc8585af3949ff2dbfa20&bill_num=30532037&total_amount=7200");
+        System.out.println("invoiceFromQr = " + invoiceFromQr);
 
     }
 
