@@ -3,6 +3,7 @@ package com.github.qrtoinvoicecore.InvoiceParser.handler;
 import com.github.qrtoinvoicecore.InvoiceParser.InvoiceParseHandle;
 import com.github.qrtoinvoicecore.model.Invoice;
 import com.github.qrtoinvoicecore.model.InvoiceTypeEnum;
+import com.github.qrtoinvoicecore.utils.GBT.GBT2260_2013;
 
 /**
  * 10 位增值税发票代码
@@ -17,7 +18,10 @@ public class VATCode10Handler extends InvoiceParseHandle {
         if (invoiceCode != null && invoiceCode.length() == 10) {
             char code10Type = invoiceCode.charAt(7); // 第8位
 
-            // todo 1-4 位：行政区划代码（对应地区名称） 判断代码是否符合 GB/T 2260 标准字典
+            String areaCode = invoiceCode.substring(0, 4);
+            if(!GBT2260_2013.getInstance().containsCode(Integer.parseInt(areaCode))) {
+                return null;
+            }
 
             if (code10Type == '1' || code10Type == '5') {
                 Invoice invoice = parseBasicFields(value);

@@ -3,6 +3,7 @@ package com.github.qrtoinvoicecore.InvoiceParser.handler;
 import com.github.qrtoinvoicecore.InvoiceParser.InvoiceParseHandle;
 import com.github.qrtoinvoicecore.model.Invoice;
 import com.github.qrtoinvoicecore.model.InvoiceTypeEnum;
+import com.github.qrtoinvoicecore.utils.GBT.GBT2260_2013;
 
 import java.math.BigDecimal;
 
@@ -19,7 +20,10 @@ public class VATCode12Handler extends InvoiceParseHandle {
         if (invoiceCode != null && invoiceCode.length() == 12) {
             char code0 = invoiceCode.charAt(0); // 第1位
 
-            // todo 2-5 位：行政区划代码（对应地区名称） GB/T 2260 标准字典
+            String areaCode = invoiceCode.substring(1, 5);
+            if(!GBT2260_2013.getInstance().containsCode(Integer.parseInt(areaCode))) {
+                return null;
+            }
 
             if (code0 == '1') {
                 if (invoiceCode.charAt(7) == '0' && invoiceCode.charAt(8) == '9' && invoiceCode.charAt(11) == '0') {
