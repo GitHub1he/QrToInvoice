@@ -109,4 +109,4 @@ System.out.println("发票金额: " + invoice.getAmount());
 
 ## 许可证
 
-本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件。
+本项目采用 MIT 许可证 - 详见 [LICENSE](https://github.com/GitHub1he/QrToInvoice/blob/master/LICENSE) 文件。
