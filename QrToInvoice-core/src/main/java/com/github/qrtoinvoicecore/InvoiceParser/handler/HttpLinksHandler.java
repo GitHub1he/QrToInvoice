@@ -7,17 +7,11 @@ import com.github.qrtoinvoicecore.model.Invoice;
 import com.github.qrtoinvoicecore.model.InvoiceTypeEnum;
 import com.github.qrtoinvoicecore.utils.HttpUtils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.math.BigDecimal;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * 处理二维码为http链接，目前支持发票类型：区块链
@@ -108,7 +102,7 @@ public class HttpLinksHandler extends InvoiceParseHandle {
             if (billRecord == null) return null;
 
             Invoice invoice = new Invoice();
-            invoice.setInvoiceType(InvoiceTypeEnum.Blockchain);
+            invoice.setInvoiceType(InvoiceTypeEnum.BLOCKCHAIN);
             invoice.setInvoiceCode(billRecord.getBill_code());
             invoice.setInvoiceNumber(billRecord.getBill_num());
             invoice.setAmount(new BigDecimal(billRecord.getAmount()).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP));

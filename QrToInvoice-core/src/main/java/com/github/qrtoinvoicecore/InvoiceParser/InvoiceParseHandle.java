@@ -1,10 +1,13 @@
 package com.github.qrtoinvoicecore.InvoiceParser;
 
 
+import cn.hutool.core.date.DateUtil;
+import com.alibaba.fastjson2.util.DateUtils;
 import com.github.qrtoinvoicecore.model.Invoice;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
-
+@Slf4j
 public abstract class InvoiceParseHandle {
     protected InvoiceParseHandle next;
 
@@ -36,38 +39,33 @@ public abstract class InvoiceParseHandle {
      */
     protected Invoice parseBasicFields(String value) {
         String[] fields = value.split(",", -1);
-        if (fields.length < 8) {
-            throw new IllegalArgumentException("二维码数据格式不正确，字段数量不足");
-        }
 
         Invoice invoice = new Invoice();
-        invoice.setVersion(fields[0]);
-        // 第1位是二维码类型，在具体处理器中处理
-        invoice.setInvoiceCode(fields[2]);
-        invoice.setInvoiceNumber(fields[3]);
+        try{
+            invoice.setVersion(fields[0]);
+            // 第1位是二维码类型，在具体处理器中处理
+            invoice.setInvoiceCode(fields[2]);
+            invoice.setInvoiceNumber(fields[3]);
 
-        // 解析金额
-        if (fields[4] != null && !fields[4].trim().isEmpty()) {
-            try {
-                invoice.setAmount(new BigDecimal(fields[4]));
-            } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("金额格式不正确: " + fields[4]);
+            // 解析金额
+            if (fields[4] != null && !fields[4].trim().isEmpty()) {
+                try {
+                    invoice.setAmount(new BigDecimal(fields[4]));
+                } catch (NumberFormatException e) {
+                    log.info("金额格式不正确: {}" , fields[4]);
+                }
             }
-        }
 
-        // 解析日期
-        if (fields[5] != null && !fields[5].trim().isEmpty()) {
-            try {
-                // 将YYYYMMDD格式转换为Date
-                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyyMMdd");
-                invoice.setIssueDate(sdf.parse(fields[5]));
-            } catch (java.text.ParseException e) {
-                throw new IllegalArgumentException("日期格式不正确: " + fields[5]);
+            // 解析日期
+            if (fields[5] != null && !fields[5].trim().isEmpty()) {
+                invoice.setIssueDate(DateUtils.parseDate(fields[5]));
             }
-        }
 
-        invoice.setCheckCode(fields[6]);
-        invoice.setCrc(fields[7]);
+            invoice.setCheckCode(fields[6]);
+            invoice.setCrc(fields[7]);
+        }catch (Exception ex) {
+            log.info("parseBasicFields error, ", ex);
+        }
 
         return invoice;
     }

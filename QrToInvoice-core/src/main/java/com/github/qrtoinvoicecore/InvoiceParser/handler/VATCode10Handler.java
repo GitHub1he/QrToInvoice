@@ -3,6 +3,7 @@ package com.github.qrtoinvoicecore.InvoiceParser.handler;
 import com.github.qrtoinvoicecore.InvoiceParser.InvoiceParseHandle;
 import com.github.qrtoinvoicecore.model.Invoice;
 import com.github.qrtoinvoicecore.model.InvoiceTypeEnum;
+import com.github.qrtoinvoicecore.utils.AreaUtils;
 import com.github.qrtoinvoicecore.utils.GBT.GBT2260_2013;
 
 /**
@@ -19,7 +20,7 @@ public class VATCode10Handler extends InvoiceParseHandle {
             char code10Type = invoiceCode.charAt(7); // 第8位
 
             String areaCode = invoiceCode.substring(0, 4);
-            if(!GBT2260_2013.getInstance().containsCode(Integer.parseInt(areaCode))) {
+            if (!AreaUtils.isValidRegionCode(areaCode)) {
                 return null;
             }
 

@@ -25,6 +25,7 @@ public class InvoiceParser {
      */
     private static InvoiceParseHandle buildChain() {
         HttpLinksHandler linksHandler = new HttpLinksHandler();
+        FinanceInvoiceHandler financeInvoiceHandler = new FinanceInvoiceHandler();
         DigitalInvoiceHandler digitalHandler = new DigitalInvoiceHandler();
         SpecialCode20Handler special20Handler = new SpecialCode20Handler();
         DynamicTypeHandler dynamicHandler = new DynamicTypeHandler();
@@ -32,7 +33,8 @@ public class InvoiceParser {
         VATCode12Handler vatCode12Handler = new VATCode12Handler();
         DefaultMappingHandler defaultHandler = new DefaultMappingHandler();
 
-        linksHandler.setNext(digitalHandler);
+        linksHandler.setNext(financeInvoiceHandler);
+        financeInvoiceHandler.setNext(digitalHandler);
         digitalHandler.setNext(special20Handler);
         special20Handler.setNext(dynamicHandler);
         dynamicHandler.setNext(vatCode10Handler);
