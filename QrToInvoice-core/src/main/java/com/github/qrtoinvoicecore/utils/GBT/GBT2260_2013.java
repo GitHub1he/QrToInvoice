@@ -51,4 +51,5 @@ public class GBT2260_2013 {
     public Set<Integer> getAllCodes() {
         return new HashSet<>(dictionary.keySet());
     }
+
 }
